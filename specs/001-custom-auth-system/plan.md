@@ -236,7 +236,7 @@ Error:
 - Ruff for linting (replaces Flake8, isort, Black)
 - Configuration in `pyproject.toml`
 - Pre-commit hooks enforce formatting (optional but recommended)
-- Max line length: 88 characters
+- Max line length: 79 characters
 
 **Code Review:**
 - All PRs require approval from at least one other developer

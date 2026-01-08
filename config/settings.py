@@ -159,3 +159,6 @@ load_dotenv()
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', SECRET_KEY)
 JWT_ALGORITHM = 'HS256'
 JWT_TOKEN_LIFETIME = 86400  # 24 hours in seconds
+
+# Rate limiting
+RATELIMIT_ENABLE = True

@@ -3,8 +3,10 @@
 from datetime import datetime
 
 from django.conf import settings
+from django_ratelimit.decorators import ratelimit
+from django.utils.decorators import method_decorator
 from rest_framework import status
-from rest_framework.exceptions import AuthenticationFailed, PermissionDenied
+from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, Throttled
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,9 +19,20 @@ from authentication.serializers import (
     UserSerializer,
 )
 from authentication.utils import blacklist_token
-from core.constants import ACCOUNT_INACTIVE, INVALID_CREDENTIALS
+from core.constants import ACCOUNT_INACTIVE, INVALID_CREDENTIALS, RATE_LIMIT_EXCEEDED
 from core.jwt_utils import generate_jwt_token
 from core.utils import response_error, response_success
+
+
+def ratelimit_handler(request: Request, exception: Exception) -> Response:
+    """Custom handler for rate limit exceeded."""
+    return Response(
+        response_error(
+            code=RATE_LIMIT_EXCEEDED,
+            message="Rate limit exceeded. Please try again later.",
+        ),
+        status=status.HTTP_429_TOO_MANY_REQUESTS,
+    )
 
 
 class RegisterView(APIView):
@@ -59,11 +72,13 @@ class RegisterView(APIView):
         )
 
 
+@method_decorator(ratelimit(key='ip', rate='5/m', method='POST', block=True), name='dispatch')
 class LoginView(APIView):
     """
     API view for user login.
     
     POST /api/auth/login - Authenticate and get JWT token
+    Rate limited to 5 attempts per minute per IP.
     """
     
     permission_classes = []  # Allow unauthenticated access

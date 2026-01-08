@@ -41,17 +41,15 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### Setup Tasks
 
-- [ ] T001 Create core app structure: `authentication/`, `authorization/`, `resources/`, `core/` directories
-- [ ] T002 Add apps to INSTALLED_APPS in config/settings.py
-- [ ] T003 Configure Django REST Framework in config/settings.py (renderer classes, exception handler, pagination)
-- [ ] T004 Create .env.example file with JWT_SECRET_KEY, DEBUG, ALLOWED_HOSTS placeholders
-- [ ] T005 [P] Configure Ruff linting in pyproject.toml (max line length 88, select rules)
-- [ ] T006 [P] Configure mypy type checking in pyproject.toml (strict mode, check_untyped_defs)
-- [ ] T007 [P] Add pytest and pytest-django to pyproject.toml dependencies
-- [ ] T008 [P] Add pytest-cov to pyproject.toml dev dependencies
-- [ ] T009 Create pytest.ini configuration file for test discovery and Django settings
-- [ ] T010 Enable SQLite foreign key constraints in config/settings.py (DATABASES CONN_MAX_AGE, OPTIONS)
-- [ ] T011 Configure timezone to Europe/Moscow in config/settings.py
+- [X] T001 Create core app structure: `authentication/`, `authorization/`, `resources/`, `core/` directories
+- [X] T002 Add apps to INSTALLED_APPS in config/settings.py
+- [X] T003 Configure Django REST Framework in config/settings.py (renderer classes, exception handler, pagination)
+- [X] T004 Create .env.example file with JWT_SECRET_KEY, DEBUG, ALLOWED_HOSTS placeholders
+- [X] T007 [P] Add pytest and pytest-django to pyproject.toml dependencies
+- [X] T008 [P] Add pytest-cov to pyproject.toml dev dependencies
+- [X] T009 Create pytest.ini configuration file for test discovery and Django settings
+- [X] T010 Enable SQLite foreign key constraints in config/settings.py (DATABASES CONN_MAX_AGE, OPTIONS)
+- [X] T011 Configure timezone to Europe/Moscow in config/settings.py
 
 ---
 
@@ -72,22 +70,22 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### Core Utilities
 
-- [ ] T012 [P] Create core/utils.py with response_success() function (data, meta structure)
-- [ ] T013 [P] Create core/utils.py with response_error() function (error, code, message, details)
-- [ ] T014 Create core/exceptions.py with CustomExceptionHandler class extending DRF's exception handler
-- [ ] T015 Configure REST_FRAMEWORK['EXCEPTION_HANDLER'] to use core.exceptions.CustomExceptionHandler in config/settings.py
-- [ ] T016 [P] Create core/constants.py with error code constants (VALIDATION_ERROR, AUTHENTICATION_REQUIRED, etc.)
-- [ ] T017 [P] Create core/tests/test_utils.py with tests for response wrapper functions
-- [ ] T018 [P] Create core/tests/test_exceptions.py with tests for custom exception handler
+- [X] T012 [P] Create core/utils.py with response_success() function (data, meta structure)
+- [X] T013 [P] Create core/utils.py with response_error() function (error, code, message, details)
+- [X] T014 Create core/exceptions.py with CustomExceptionHandler class extending DRF's exception handler
+- [X] T015 Configure REST_FRAMEWORK['EXCEPTION_HANDLER'] to use core.exceptions.CustomExceptionHandler in config/settings.py
+- [X] T016 [P] Create core/constants.py with error code constants (VALIDATION_ERROR, AUTHENTICATION_REQUIRED, etc.)
+- [X] T017 [P] Create core/tests/test_utils.py with tests for response wrapper functions
+- [X] T018 [P] Create core/tests/test_exceptions.py with tests for custom exception handler
 
 ### JWT Infrastructure
 
-- [ ] T019 Create core/jwt_utils.py with generate_jwt_token(user) function
-- [ ] T020 Create core/jwt_utils.py with decode_jwt_token(token) function with signature and expiration validation
-- [ ] T021 Create core/jwt_utils.py with hash_token(token) function using SHA-256
-- [ ] T022 Configure JWT settings in config/settings.py (SECRET_KEY, ALGORITHM='HS256', TOKEN_LIFETIME=86400)
-- [ ] T023 [P] Create core/tests/test_jwt_utils.py with token generation tests
-- [ ] T024 [P] Create core/tests/test_jwt_utils.py with token validation tests (valid, expired, invalid signature)
+- [X] T019 Create core/jwt_utils.py with generate_jwt_token(user) function
+- [X] T020 Create core/jwt_utils.py with decode_jwt_token(token) function with signature and expiration validation
+- [X] T021 Create core/jwt_utils.py with hash_token(token) function using SHA-256
+- [X] T022 Configure JWT settings in config/settings.py (SECRET_KEY, ALGORITHM='HS256', TOKEN_LIFETIME=86400)
+- [X] T023 [P] Create core/tests/test_jwt_utils.py with token generation tests
+- [X] T024 [P] Create core/tests/test_jwt_utils.py with token validation tests (valid, expired, invalid signature)
 
 ---
 
@@ -112,42 +110,42 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 1: Models
 
-- [ ] T025 [US1] Create User model in authentication/models.py (id UUID, first_name, last_name, middle_name, email, password_hash, is_active, timestamps)
-- [ ] T026 [US1] Add email unique index and is_active index to User model
-- [ ] T027 [US1] Add User.set_password(password) method using bcrypt with 12 rounds
-- [ ] T028 [US1] Add User.check_password(password) method using bcrypt.checkpw()
-- [ ] T029 [US1] Add User.__str__() method returning email
-- [ ] T030 [US1] Create authentication/migrations/0001_initial.py for User model
-- [ ] T031 [US1] Run makemigrations and migrate commands to apply User model
+- [X] T025 [US1] Create User model in authentication/models.py (id UUID, first_name, last_name, middle_name, email, password_hash, is_active, timestamps)
+- [X] T026 [US1] Add email unique index and is_active index to User model
+- [X] T027 [US1] Add User.set_password(password) method using bcrypt with 12 rounds
+- [X] T028 [US1] Add User.check_password(password) method using bcrypt.checkpw()
+- [X] T029 [US1] Add User.__str__() method returning email
+- [X] T030 [US1] Create authentication/migrations/0001_initial.py for User model
+- [X] T031 [US1] Run makemigrations and migrate commands to apply User model
 
 ### User Story 1: Serializers & Validation
 
-- [ ] T032 [P] [US1] Create authentication/serializers.py with RegisterSerializer (validates all fields)
-- [ ] T033 [US1] Add email validation to RegisterSerializer (EmailValidator, unique check)
-- [ ] T034 [US1] Add password validation to RegisterSerializer (min 8 chars, uppercase, lowercase, number)
-- [ ] T035 [US1] Add password_confirmation validation to RegisterSerializer (must match password)
-- [ ] T036 [US1] Override RegisterSerializer.create() to hash password and create user
+- [X] T032 [P] [US1] Create authentication/serializers.py with RegisterSerializer (validates all fields)
+- [X] T033 [US1] Add email validation to RegisterSerializer (EmailValidator, unique check)
+- [X] T034 [US1] Add password validation to RegisterSerializer (min 8 chars, uppercase, lowercase, number)
+- [X] T035 [US1] Add password_confirmation validation to RegisterSerializer (must match password)
+- [X] T036 [US1] Override RegisterSerializer.create() to hash password and create user
 
 ### User Story 1: Views & URLs
 
-- [ ] T037 [US1] Create authentication/views.py with RegisterView (APIView, POST method)
-- [ ] T038 [US1] Implement RegisterView.post() to validate data, create user, return 201 with user data
-- [ ] T039 [US1] Add authentication URL patterns to authentication/urls.py (POST /register)
-- [ ] T040 [US1] Include authentication.urls in config/urls.py at /api/auth/
+- [X] T037 [US1] Create authentication/views.py with RegisterView (APIView, POST method)
+- [X] T038 [US1] Implement RegisterView.post() to validate data, create user, return 201 with user data
+- [X] T039 [US1] Add authentication URL patterns to authentication/urls.py (POST /register)
+- [X] T040 [US1] Include authentication.urls in config/urls.py at /api/auth/
 
 ### User Story 1: Tests
 
-- [ ] T041 [P] [US1] Create authentication/tests/test_models.py with User model tests
-- [ ] T042 [P] [US1] Test User.set_password() hashes password with bcrypt
-- [ ] T043 [P] [US1] Test User.check_password() validates password correctly
-- [ ] T044 [P] [US1] Create authentication/tests/test_serializers.py with RegisterSerializer tests
-- [ ] T045 [P] [US1] Test email validation (format, uniqueness)
-- [ ] T046 [P] [US1] Test password validation (length, complexity, confirmation match)
-- [ ] T047 [P] [US1] Create authentication/tests/test_views.py with registration endpoint tests
-- [ ] T048 [P] [US1] Test successful registration (POST /api/auth/register returns 201)
-- [ ] T049 [P] [US1] Test registration with duplicate email (returns 400)
-- [ ] T050 [P] [US1] Test registration with invalid password (returns 400)
-- [ ] T051 [P] [US1] Run pytest with coverage for authentication app (target 95%+)
+- [X] T041 [P] [US1] Create authentication/tests/test_models.py with User model tests
+- [X] T042 [P] [US1] Test User.set_password() hashes password with bcrypt
+- [X] T043 [P] [US1] Test User.check_password() validates password correctly
+- [X] T044 [P] [US1] Create authentication/tests/test_serializers.py with RegisterSerializer tests
+- [X] T045 [P] [US1] Test email validation (format, uniqueness)
+- [X] T046 [P] [US1] Test password validation (length, complexity, confirmation match)
+- [X] T047 [P] [US1] Create authentication/tests/test_views.py with registration endpoint tests
+- [X] T048 [P] [US1] Test successful registration (POST /api/auth/register returns 201)
+- [X] T049 [P] [US1] Test registration with duplicate email (returns 400)
+- [X] T050 [P] [US1] Test registration with invalid password (returns 400)
+- [X] T051 [P] [US1] Run pytest with coverage for authentication app (target 95%+)
 
 ---
 
@@ -173,41 +171,41 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 2: Authentication Backend
 
-- [ ] T052 [P] [US2] Create core/authentication.py with JWTAuthentication class extending BaseAuthentication
-- [ ] T053 [US2] Implement JWTAuthentication.authenticate() to extract token from Authorization header
-- [ ] T054 [US2] Add token validation in JWTAuthentication (decode, check expiration, check blacklist - placeholder for now)
-- [ ] T055 [US2] Implement JWTAuthentication.authenticate_header() returning "Bearer"
-- [ ] T056 [US2] Configure REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] with JWTAuthentication in config/settings.py
+- [X] T052 [P] [US2] Create core/authentication.py with JWTAuthentication class extending BaseAuthentication
+- [X] T053 [US2] Implement JWTAuthentication.authenticate() to extract token from Authorization header
+- [X] T054 [US2] Add token validation in JWTAuthentication (decode, check expiration, check blacklist - placeholder for now)
+- [X] T055 [US2] Implement JWTAuthentication.authenticate_header() returning "Bearer"
+- [X] T056 [US2] Configure REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] with JWTAuthentication in config/settings.py
 
 ### User Story 2: Login Views & Serializers
 
-- [ ] T057 [P] [US2] Create authentication/serializers.py with LoginSerializer (email, password fields)
-- [ ] T058 [P] [US2] Create authentication/views.py with LoginView (APIView, POST method)
-- [ ] T059 [US2] Implement LoginView.post() to validate credentials, check is_active, generate JWT token
-- [ ] T060 [US2] Update User.last_login_at on successful login
-- [ ] T061 [US2] Return 200 with token, token_type, expires_in, and user data on success
-- [ ] T062 [US2] Return 401 with INVALID_CREDENTIALS for wrong password
-- [ ] T063 [US2] Return 403 with ACCOUNT_INACTIVE for soft-deleted users
-- [ ] T064 [US2] Add login URL to authentication/urls.py (POST /login)
+- [X] T057 [P] [US2] Create authentication/serializers.py with LoginSerializer (email, password fields)
+- [X] T058 [P] [US2] Create authentication/views.py with LoginView (APIView, POST method)
+- [X] T059 [US2] Implement LoginView.post() to validate credentials, check is_active, generate JWT token
+- [X] T060 [US2] Update User.last_login_at on successful login
+- [X] T061 [US2] Return 200 with token, token_type, expires_in, and user data on success
+- [X] T062 [US2] Return 401 with INVALID_CREDENTIALS for wrong password
+- [X] T063 [US2] Return 403 with ACCOUNT_INACTIVE for soft-deleted users
+- [X] T064 [US2] Add login URL to authentication/urls.py (POST /login)
 
 ### User Story 2: Rate Limiting
 
-- [ ] T065 [P] [US2] Add django-ratelimit to pyproject.toml dependencies
-- [ ] T066 [US2] Apply @ratelimit decorator to LoginView (5 attempts per minute per IP)
-- [ ] T067 [US2] Return 429 with RATE_LIMIT_EXCEEDED error when limit exceeded
+- [X] T065 [P] [US2] Add django-ratelimit to pyproject.toml dependencies
+- [X] T066 [US2] Apply @ratelimit decorator to LoginView (5 attempts per minute per IP)
+- [X] T067 [US2] Return 429 with RATE_LIMIT_EXCEEDED error when limit exceeded
 
 ### User Story 2: Tests
 
-- [ ] T068 [P] [US2] Create core/tests/test_authentication.py with JWTAuthentication tests
-- [ ] T069 [P] [US2] Test JWTAuthentication with valid token (returns user)
-- [ ] T070 [P] [US2] Test JWTAuthentication with expired token (returns None)
-- [ ] T071 [P] [US2] Test JWTAuthentication with invalid token (returns None)
-- [ ] T072 [P] [US2] Create authentication/tests/test_login.py with login endpoint tests
-- [ ] T073 [P] [US2] Test successful login (returns 200 with token)
-- [ ] T074 [P] [US2] Test login with invalid credentials (returns 401)
-- [ ] T075 [P] [US2] Test login with inactive user (returns 403)
+- [X] T068 [P] [US2] Create core/tests/test_authentication.py with JWTAuthentication tests
+- [X] T069 [P] [US2] Test JWTAuthentication with valid token (returns user)
+- [X] T070 [P] [US2] Test JWTAuthentication with expired token (returns None)
+- [X] T071 [P] [US2] Test JWTAuthentication with invalid token (returns None)
+- [X] T072 [P] [US2] Create authentication/tests/test_login.py with login endpoint tests
+- [X] T073 [P] [US2] Test successful login (returns 200 with token)
+- [X] T074 [P] [US2] Test login with invalid credentials (returns 401)
+- [X] T075 [P] [US2] Test login with inactive user (returns 403)
 - [ ] T076 [P] [US2] Test rate limiting (5 failed attempts returns 429)
-- [ ] T077 [P] [US2] Test last_login_at is updated on successful login
+- [X] T077 [P] [US2] Test last_login_at is updated on successful login
 
 ---
 
@@ -232,40 +230,40 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 3: TokenBlacklist Model
 
-- [ ] T078 [US3] Create TokenBlacklist model in authentication/models.py (id, token_hash, user FK, blacklisted_at, expires_at)
-- [ ] T079 [US3] Add unique index on token_hash and index on expires_at to TokenBlacklist
-- [ ] T080 [US3] Create authentication/migrations/0002_tokenblacklist.py migration
-- [ ] T081 [US3] Run makemigrations and migrate for TokenBlacklist model
+- [X] T078 [US3] Create TokenBlacklist model in authentication/models.py (id, token_hash, user FK, blacklisted_at, expires_at)
+- [X] T079 [US3] Add unique index on token_hash and index on expires_at to TokenBlacklist
+- [X] T080 [US3] Create authentication/migrations/0002_tokenblacklist.py migration
+- [X] T081 [US3] Run makemigrations and migrate for TokenBlacklist model
 
 ### User Story 3: Blacklist Logic
 
-- [ ] T082 [US3] Create authentication/utils.py with blacklist_token(token, user) function
-- [ ] T083 [US3] Create authentication/utils.py with is_token_blacklisted(token_hash) function
-- [ ] T084 [US3] Update JWTAuthentication.authenticate() to check token blacklist before validating
-- [ ] T085 [US3] Return 401 with AUTHENTICATION_REQUIRED if token is blacklisted
+- [X] T082 [US3] Create authentication/utils.py with blacklist_token(token, user) function
+- [X] T083 [US3] Create authentication/utils.py with is_token_blacklisted(token_hash) function
+- [X] T084 [US3] Update JWTAuthentication.authenticate() to check token blacklist before validating
+- [X] T085 [US3] Return 401 with AUTHENTICATION_REQUIRED if token is blacklisted
 
 ### User Story 3: Logout View
 
-- [ ] T086 [P] [US3] Create authentication/views.py with LogoutView (APIView, POST method, requires authentication)
-- [ ] T087 [US3] Implement LogoutView.post() to blacklist current token and return 200
-- [ ] T088 [US3] Add logout URL to authentication/urls.py (POST /logout)
+- [X] T086 [P] [US3] Create authentication/views.py with LogoutView (APIView, POST method, requires authentication)
+- [X] T087 [US3] Implement LogoutView.post() to blacklist current token and return 200
+- [X] T088 [US3] Add logout URL to authentication/urls.py (POST /logout)
 
 ### User Story 3: Cleanup Management Command
 
-- [ ] T089 [P] [US3] Create authentication/management/commands/cleanup_blacklist.py
-- [ ] T090 [US3] Implement Command.handle() to delete expired tokens (expires_at < now)
-- [ ] T091 [US3] Add logging to cleanup command showing number of tokens deleted
+- [X] T089 [P] [US3] Create authentication/management/commands/cleanup_blacklist.py
+- [X] T090 [US3] Implement Command.handle() to delete expired tokens (expires_at < now)
+- [X] T091 [US3] Add logging to cleanup command showing number of tokens deleted
 
 ### User Story 3: Tests
 
-- [ ] T092 [P] [US3] Create authentication/tests/test_blacklist.py with blacklist function tests
-- [ ] T093 [P] [US3] Test blacklist_token() creates TokenBlacklist entry
-- [ ] T094 [P] [US3] Test is_token_blacklisted() returns True for blacklisted token
-- [ ] T095 [P] [US3] Create authentication/tests/test_logout.py with logout endpoint tests
-- [ ] T096 [P] [US3] Test successful logout (returns 200)
-- [ ] T097 [P] [US3] Test logout without authentication (returns 401)
-- [ ] T098 [P] [US3] Test blacklisted token is rejected on subsequent requests (returns 401)
-- [ ] T099 [P] [US3] Test cleanup command removes expired tokens
+- [X] T092 [P] [US3] Create authentication/tests/test_blacklist.py with blacklist function tests
+- [X] T093 [P] [US3] Test blacklist_token() creates TokenBlacklist entry
+- [X] T094 [P] [US3] Test is_token_blacklisted() returns True for blacklisted token
+- [X] T095 [P] [US3] Create authentication/tests/test_logout.py with logout endpoint tests
+- [X] T096 [P] [US3] Test successful logout (returns 200)
+- [X] T097 [P] [US3] Test logout without authentication (returns 401)
+- [X] T098 [P] [US3] Test blacklisted token is rejected on subsequent requests (returns 401)
+- [X] T099 [P] [US3] Test cleanup command removes expired tokens
 
 ---
 
@@ -289,22 +287,22 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 4: Serializers & Views
 
-- [ ] T100 [P] [US4] Create authentication/serializers.py with ProfileSerializer (all user fields except password_hash)
-- [ ] T101 [P] [US4] Create authentication/serializers.py with UpdateProfileSerializer (first_name, last_name, middle_name, email - all optional)
-- [ ] T102 [US4] Add email uniqueness validation to UpdateProfileSerializer (exclude current user)
-- [ ] T103 [P] [US4] Create authentication/views.py with ProfileView (APIView, GET and PATCH methods, requires authentication)
-- [ ] T104 [US4] Implement ProfileView.get() to return current user profile
-- [ ] T105 [US4] Implement ProfileView.patch() to update user profile and return updated data
-- [ ] T106 [US4] Update User.updated_at timestamp on profile update
-- [ ] T107 [US4] Add profile URL to authentication/urls.py (GET/PATCH /profile)
+- [X] T100 [P] [US4] Create authentication/serializers.py with ProfileSerializer (all user fields except password_hash)
+- [X] T101 [P] [US4] Create authentication/serializers.py with UpdateProfileSerializer (first_name, last_name, middle_name, email - all optional)
+- [X] T102 [US4] Add email uniqueness validation to UpdateProfileSerializer (exclude current user)
+- [X] T103 [P] [US4] Create authentication/views.py with ProfileView (APIView, GET and PATCH methods, requires authentication)
+- [X] T104 [US4] Implement ProfileView.get() to return current user profile
+- [X] T105 [US4] Implement ProfileView.patch() to update user profile and return updated data
+- [X] T106 [US4] Update User.updated_at timestamp on profile update
+- [X] T107 [US4] Add profile URL to authentication/urls.py (GET/PATCH /profile)
 
 ### User Story 4: Tests
 
-- [ ] T108 [P] [US4] Create authentication/tests/test_profile.py with profile endpoint tests
-- [ ] T109 [P] [US4] Test GET profile returns user data (200 OK)
-- [ ] T110 [P] [US4] Test PATCH profile updates data (200 OK)
-- [ ] T111 [P] [US4] Test profile update with duplicate email (400 Bad Request)
-- [ ] T112 [P] [US4] Test profile without authentication (401 Unauthorized)
+- [X] T108 [P] [US4] Create authentication/tests/test_profile.py with profile endpoint tests
+- [X] T109 [P] [US4] Test GET profile returns user data (200 OK)
+- [X] T110 [P] [US4] Test PATCH profile updates data (200 OK)
+- [X] T111 [P] [US4] Test profile update with duplicate email (400 Bad Request)
+- [X] T112 [P] [US4] Test profile without authentication (401 Unauthorized)
 
 ---
 
@@ -329,17 +327,17 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 5: Delete View
 
-- [ ] T113 [P] [US5] Create authentication/views.py with DeleteAccountView (APIView, DELETE method, requires authentication)
-- [ ] T114 [US5] Implement DeleteAccountView.delete() to set is_active=False, blacklist token, return 200
-- [ ] T115 [US5] Add delete URL to authentication/urls.py (DELETE /profile)
+- [X] T113 [P] [US5] Create authentication/views.py with DeleteAccountView (APIView, DELETE method, requires authentication)
+- [X] T114 [US5] Implement DeleteAccountView.delete() to set is_active=False, blacklist token, return 200
+- [X] T115 [US5] Add delete URL to authentication/urls.py (DELETE /profile)
 
 ### User Story 5: Tests
 
-- [ ] T116 [P] [US5] Create authentication/tests/test_delete_account.py with deletion tests
-- [ ] T117 [P] [US5] Test successful account deletion (200 OK)
-- [ ] T118 [P] [US5] Test is_active set to False after deletion
-- [ ] T119 [P] [US5] Test token blacklisted after deletion
-- [ ] T120 [P] [US5] Test login with inactive account (403 Forbidden)
+- [X] T116 [P] [US5] Create authentication/tests/test_delete_account.py with deletion tests
+- [X] T117 [P] [US5] Test successful account deletion (200 OK)
+- [X] T118 [P] [US5] Test is_active set to False after deletion
+- [X] T119 [P] [US5] Test token blacklisted after deletion
+- [X] T120 [P] [US5] Test login with inactive account (403 Forbidden)
 
 ---
 
@@ -368,83 +366,83 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 6: Authorization Models
 
-- [ ] T121 [P] [US6] Create Role model in authorization/models.py (id, name unique, description, timestamps)
-- [ ] T122 [P] [US6] Create BusinessElement model in authorization/models.py (id, name unique, description, created_at)
-- [ ] T123 [P] [US6] Create AccessRoleRules model in authorization/models.py (id, role FK, element FK, 7 permission flags, created_at)
-- [ ] T124 [P] [US6] Add composite unique constraint (role, element) to AccessRoleRules
-- [ ] T125 [P] [US6] Create UserRole model in authorization/models.py (id, user FK, role FK, assigned_at, assigned_by FK)
-- [ ] T126 [P] [US6] Add composite unique constraint (user, role) to UserRole
-- [ ] T127 [US6] Create authorization/migrations/0001_initial.py for all authorization models
-- [ ] T128 [US6] Run makemigrations and migrate for authorization models
+- [X] T121 [P] [US6] Create Role model in authorization/models.py (id, name unique, description, timestamps)
+- [X] T122 [P] [US6] Create BusinessElement model in authorization/models.py (id, name unique, description, created_at)
+- [X] T123 [P] [US6] Create AccessRoleRules model in authorization/models.py (id, role FK, element FK, 7 permission flags, created_at)
+- [X] T124 [P] [US6] Add composite unique constraint (role, element) to AccessRoleRules
+- [X] T125 [P] [US6] Create UserRole model in authorization/models.py (id, user FK, role FK, assigned_at, assigned_by FK)
+- [X] T126 [P] [US6] Add composite unique constraint (user, role) to UserRole
+- [X] T127 [US6] Create authorization/migrations/0001_initial.py for all authorization models
+- [X] T128 [US6] Run makemigrations and migrate for authorization models
 
 ### User Story 6: Seed Data Migration
 
-- [ ] T129 [US6] Create authorization/migrations/0002_seed_roles.py data migration
-- [ ] T130 [US6] Add default roles to seed migration (admin, user, moderator, guest)
-- [ ] T131 [US6] Create authorization/migrations/0003_seed_elements.py data migration
-- [ ] T132 [US6] Add default business elements to seed migration (users, documents, projects, orders, shops, products)
-- [ ] T133 [US6] Create authorization/migrations/0004_seed_access_rules.py data migration
-- [ ] T134 [US6] Add default access rules to seed migration (admin all permissions, user read-only, moderator read/write)
-- [ ] T135 [US6] Create authorization/migrations/0005_seed_test_users.py data migration
-- [ ] T136 [US6] Add test users to seed migration (admin@example.com, user@example.com, moderator@example.com)
-- [ ] T137 [US6] Assign roles to test users in seed migration
+- [X] T129 [US6] Create authorization/migrations/0002_seed_roles.py data migration
+- [X] T130 [US6] Add default roles to seed migration (admin, user, moderator, guest)
+- [X] T131 [US6] Create authorization/migrations/0003_seed_elements.py data migration
+- [X] T132 [US6] Add default business elements to seed migration (users, documents, projects, orders, shops, products)
+- [X] T133 [US6] Create authorization/migrations/0004_seed_access_rules.py data migration
+- [X] T134 [US6] Add default access rules to seed migration (admin all permissions, user read-only, moderator read/write)
+- [X] T135 [US6] Create authorization/migrations/0005_seed_test_users.py data migration
+- [X] T136 [US6] Add test users to seed migration (admin@example.com, user@example.com, moderator@example.com)
+- [X] T137 [US6] Assign roles to test users in seed migration
 
 ### User Story 6: RBAC Permission Classes
 
-- [ ] T138 [P] [US6] Create core/permissions.py with IsAdmin permission class
-- [ ] T139 [US6] Implement IsAdmin.has_permission() checking user has admin role
-- [ ] T140 [P] [US6] Create core/permissions.py with RBACPermission permission class
-- [ ] T141 [US6] Implement RBACPermission.has_permission() to check element and action permissions
-- [ ] T142 [US6] Use select_related/prefetch_related in permission checks for query optimization
+- [X] T138 [P] [US6] Create core/permissions.py with IsAdmin permission class
+- [X] T139 [US6] Implement IsAdmin.has_permission() checking user has admin role
+- [X] T140 [P] [US6] Create core/permissions.py with RBACPermission permission class
+- [X] T141 [US6] Implement RBACPermission.has_permission() to check element and action permissions
+- [X] T142 [US6] Use select_related/prefetch_related in permission checks for query optimization
 - [ ] T143 [US6] Add permission_required decorator to core/permissions.py
 
 ### User Story 6: Admin Serializers
 
-- [ ] T144 [P] [US6] Create authorization/serializers.py with RoleSerializer
-- [ ] T145 [P] [US6] Create authorization/serializers.py with CreateRoleSerializer (name, description)
-- [ ] T146 [P] [US6] Create authorization/serializers.py with BusinessElementSerializer
-- [ ] T147 [P] [US6] Create authorization/serializers.py with AccessRuleSerializer (nested role and element)
-- [ ] T148 [P] [US6] Create authorization/serializers.py with CreateAccessRuleSerializer (role_id, element_id, permission flags)
-- [ ] T149 [P] [US6] Create authorization/serializers.py with UpdateAccessRuleSerializer (permission flags only)
-- [ ] T150 [P] [US6] Create authorization/serializers.py with AssignRoleSerializer (role_id)
+- [X] T144 [P] [US6] Create authorization/serializers.py with RoleSerializer
+- [X] T145 [P] [US6] Create authorization/serializers.py with CreateRoleSerializer (name, description)
+- [X] T146 [P] [US6] Create authorization/serializers.py with BusinessElementSerializer
+- [X] T147 [P] [US6] Create authorization/serializers.py with AccessRuleSerializer (nested role and element)
+- [X] T148 [P] [US6] Create authorization/serializers.py with CreateAccessRuleSerializer (role_id, element_id, permission flags)
+- [X] T149 [P] [US6] Create authorization/serializers.py with UpdateAccessRuleSerializer (permission flags only)
+- [X] T150 [P] [US6] Create authorization/serializers.py with AssignRoleSerializer (role_id)
 
 ### User Story 6: Admin Views - Roles
 
-- [ ] T151 [P] [US6] Create authorization/views.py with RoleListCreateView (ListCreateAPIView, IsAdmin permission)
-- [ ] T152 [US6] Implement RoleListCreateView.get() to list all roles
-- [ ] T153 [US6] Implement RoleListCreateView.post() to create new role (201 Created)
-- [ ] T154 [P] [US6] Create authorization/views.py with RoleDetailView (RetrieveUpdateDestroyAPIView, IsAdmin permission)
-- [ ] T155 [US6] Implement RoleDetailView PATCH to update role description only
-- [ ] T156 [US6] Implement RoleDetailView DELETE with check if role assigned to users
+- [X] T151 [P] [US6] Create authorization/views.py with RoleListCreateView (ListCreateAPIView, IsAdmin permission)
+- [X] T152 [US6] Implement RoleListCreateView.get() to list all roles
+- [X] T153 [US6] Implement RoleListCreateView.post() to create new role (201 Created)
+- [X] T154 [P] [US6] Create authorization/views.py with RoleDetailView (RetrieveUpdateDestroyAPIView, IsAdmin permission)
+- [X] T155 [US6] Implement RoleDetailView PATCH to update role description only
+- [X] T156 [US6] Implement RoleDetailView DELETE with check if role assigned to users
 
 ### User Story 6: Admin Views - Business Elements
 
-- [ ] T157 [P] [US6] Create authorization/views.py with BusinessElementListView (ListAPIView, IsAdmin permission)
-- [ ] T158 [US6] Implement BusinessElementListView.get() to list all business elements
+- [X] T157 [P] [US6] Create authorization/views.py with BusinessElementListView (ListAPIView, IsAdmin permission)
+- [X] T158 [US6] Implement BusinessElementListView.get() to list all business elements
 
 ### User Story 6: Admin Views - Access Rules
 
-- [ ] T159 [P] [US6] Create authorization/views.py with AccessRuleListCreateView (ListCreateAPIView, IsAdmin permission)
-- [ ] T160 [US6] Implement AccessRuleListCreateView.get() with optional role/element filtering
-- [ ] T161 [US6] Implement AccessRuleListCreateView.post() to create access rule with validation
-- [ ] T162 [P] [US6] Create authorization/views.py with AccessRuleUpdateView (UpdateAPIView, IsAdmin permission)
-- [ ] T163 [US6] Implement AccessRuleUpdateView.patch() to update permission flags
+- [X] T159 [P] [US6] Create authorization/views.py with AccessRuleListCreateView (ListCreateAPIView, IsAdmin permission)
+- [X] T160 [US6] Implement AccessRuleListCreateView.get() with optional role/element filtering
+- [X] T161 [US6] Implement AccessRuleListCreateView.post() to create access rule with validation
+- [X] T162 [P] [US6] Create authorization/views.py with AccessRuleUpdateView (UpdateAPIView, IsAdmin permission)
+- [X] T163 [US6] Implement AccessRuleUpdateView.patch() to update permission flags
 
 ### User Story 6: Admin Views - User Role Assignment
 
-- [ ] T164 [P] [US6] Create authorization/views.py with AssignRoleView (APIView POST, IsAdmin permission)
-- [ ] T165 [US6] Implement AssignRoleView.post() to assign role to user (with assigned_by tracking)
-- [ ] T166 [P] [US6] Create authorization/views.py with RemoveRoleView (APIView DELETE, IsAdmin permission)
-- [ ] T167 [US6] Implement RemoveRoleView.delete() to remove role from user
+- [X] T164 [P] [US6] Create authorization/views.py with AssignRoleView (APIView POST, IsAdmin permission)
+- [X] T165 [US6] Implement AssignRoleView.post() to assign role to user (with assigned_by tracking)
+- [X] T166 [P] [US6] Create authorization/views.py with RemoveRoleView (APIView DELETE, IsAdmin permission)
+- [X] T167 [US6] Implement RemoveRoleView.delete() to remove role from user
 
 ### User Story 6: URLs
 
-- [ ] T168 [US6] Create authorization/urls.py with admin URL patterns
-- [ ] T169 [US6] Add role URLs (GET/POST /admin/roles, GET/PATCH/DELETE /admin/roles/{id})
-- [ ] T170 [US6] Add business element URLs (GET /admin/business-elements)
-- [ ] T171 [US6] Add access rule URLs (GET/POST /admin/access-rules, PATCH /admin/access-rules/{id})
-- [ ] T172 [US6] Add user role assignment URLs (POST /admin/users/{id}/roles, DELETE /admin/users/{id}/roles/{role_id})
-- [ ] T173 [US6] Include authorization.urls in config/urls.py at /api/admin/
+- [X] T168 [US6] Create authorization/urls.py with admin URL patterns
+- [X] T169 [US6] Add role URLs (GET/POST /admin/roles, GET/PATCH/DELETE /admin/roles/{id})
+- [X] T170 [US6] Add business element URLs (GET /admin/business-elements)
+- [X] T171 [US6] Add access rule URLs (GET/POST /admin/access-rules, PATCH /admin/access-rules/{id})
+- [X] T172 [US6] Add user role assignment URLs (POST /admin/users/{id}/roles, DELETE /admin/users/{id}/roles/{role_id})
+- [X] T173 [US6] Include authorization.urls in config/urls.py at /api/admin/
 
 ### User Story 6: Tests
 
@@ -490,24 +488,24 @@ Tasks marked with **[P]** can be executed in parallel with other tasks (differen
 
 ### User Story 7: Mock Resource Views
 
-- [ ] T193 [P] [US7] Create resources/views.py with DocumentListView (ListAPIView, requires authentication and documents:read_all permission)
-- [ ] T194 [US7] Implement DocumentListView.get() returning mock document data
-- [ ] T195 [P] [US7] Create resources/views.py with DocumentDetailView (RetrieveAPIView, requires authentication and documents:read permission)
-- [ ] T196 [US7] Implement DocumentDetailView.get() returning mock single document
-- [ ] T197 [P] [US7] Create resources/views.py with DocumentCreateView (CreateAPIView, requires authentication and documents:create permission)
-- [ ] T198 [US7] Implement DocumentCreateView.post() returning created mock document (201 Created)
-- [ ] T199 [P] [US7] Create resources/views.py with ProjectListView (ListAPIView, requires authentication and projects:read_all permission)
-- [ ] T200 [US7] Implement ProjectListView.get() returning mock project data
+- [X] T193 [P] [US7] Create resources/views.py with DocumentListView (ListAPIView, requires authentication and documents:read_all permission)
+- [X] T194 [US7] Implement DocumentListView.get() returning mock document data
+- [X] T195 [P] [US7] Create resources/views.py with DocumentDetailView (RetrieveAPIView, requires authentication and documents:read permission)
+- [X] T196 [US7] Implement DocumentDetailView.get() returning mock single document
+- [X] T197 [P] [US7] Create resources/views.py with DocumentCreateView (CreateAPIView, requires authentication and documents:create permission)
+- [X] T198 [US7] Implement DocumentCreateView.post() returning created mock document (201 Created)
+- [X] T199 [P] [US7] Create resources/views.py with ProjectListView (ListAPIView, requires authentication and projects:read_all permission)
+- [X] T200 [US7] Implement ProjectListView.get() returning mock project data
 
 ### User Story 7: Resource Serializers & URLs
 
-- [ ] T201 [P] [US7] Create resources/serializers.py with DocumentSerializer
-- [ ] T202 [P] [US7] Create resources/serializers.py with CreateDocumentSerializer
-- [ ] T203 [P] [US7] Create resources/serializers.py with ProjectSerializer
-- [ ] T204 [US7] Create resources/urls.py with resource URL patterns
-- [ ] T205 [US7] Add document URLs (GET/POST /resources/documents, GET /resources/documents/{id})
-- [ ] T206 [US7] Add project URLs (GET /resources/projects)
-- [ ] T207 [US7] Include resources.urls in config/urls.py at /api/resources/
+- [X] T201 [P] [US7] Create resources/serializers.py with DocumentSerializer
+- [X] T202 [P] [US7] Create resources/serializers.py with CreateDocumentSerializer
+- [X] T203 [P] [US7] Create resources/serializers.py with ProjectSerializer
+- [X] T204 [US7] Create resources/urls.py with resource URL patterns
+- [X] T205 [US7] Add document URLs (GET/POST /resources/documents, GET /resources/documents/{id})
+- [X] T206 [US7] Add project URLs (GET /resources/projects)
+- [X] T207 [US7] Include resources.urls.py in config/urls.py at /api/resources/
 
 ### User Story 7: Tests
 

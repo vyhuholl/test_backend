@@ -41,7 +41,7 @@ This constitution defines the immutable principles, standards, and governance ru
 All code MUST maintain high quality standards through clear structure, comprehensive documentation, and adherence to established patterns. Code quality is non-negotiable and takes precedence over delivery speed.
 
 **Requirements:**
-- All Python code MUST follow PEP 8 style guidelines with maximum line length of 88 characters (Black formatter standard)
+- All Python code MUST follow PEP 8 style guidelines with maximum line length of 79 characters
 - All functions and classes MUST include type hints for parameters and return values
 - All public APIs MUST include docstrings following the Google or NumPy documentation style
 - Code complexity MUST be monitored; functions exceeding cyclomatic complexity of 10 require refactoring or explicit justification

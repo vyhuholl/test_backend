@@ -436,6 +436,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "bcrypt" },
     { name = "django" },
+    { name = "django-ratelimit" },
     { name = "djangorestframework" },
     { name = "pyjwt" },
     { name = "python-dotenv" },
@@ -443,7 +444,6 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "django-ratelimit" },
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -455,6 +455,7 @@ dev = [
 requires-dist = [
     { name = "bcrypt", specifier = ">=5.0.0" },
     { name = "django", specifier = ">=6.0.1" },
+    { name = "django-ratelimit", specifier = ">=4.1.0" },
     { name = "djangorestframework", specifier = ">=3.16.1" },
     { name = "pyjwt", specifier = ">=2.10.1" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
@@ -462,7 +463,6 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "django-ratelimit", specifier = ">=4.1.0" },
     { name = "mypy", specifier = ">=1.19.1" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "pytest-cov", specifier = ">=6.0.0" },

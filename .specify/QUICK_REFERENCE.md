@@ -9,7 +9,7 @@ Quick lookup for constitutional requirements during development.
 - [ ] Consider type hints strategy
 
 ### While Coding
-- [ ] Follow PEP 8 (88 char line length - Black standard)
+- [ ] Follow PEP 8 (79 char line length)
 - [ ] Add type hints to ALL functions/methods
 - [ ] Keep functions simple (cyclomatic complexity < 10)
 - [ ] Write docstrings (Google or NumPy style)

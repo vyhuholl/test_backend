@@ -1,0 +1,27 @@
+default_language_version:
+    python: python3.12
+files: .+\.py
+exclude: ^.*/migrations/.*$
+repos:
+  - repo: local
+    hooks:
+    # Run the linter.
+    - id: ruff
+      name: ruff
+      entry: uv run ruff check
+      language: system
+    # Run the formatter.
+    - id: ruff-format
+      name: ruff-format
+      entry: uv run ruff format
+      language: system
+    # Run type checker
+    - id: mypy
+      name: mypy
+      entry: uv run mypy
+      language: system
+    # Run tests
+    - id: pytest
+      name: pytest
+      entry: uv run pytest
+      language: system
