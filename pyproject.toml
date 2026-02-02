@@ -20,3 +20,6 @@ dev = [
 
 [tool.ruff]
 line-length = 79
+extend-exclude = [
+    "alembic",
+]
