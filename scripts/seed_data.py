@@ -8,10 +8,16 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from app.database import AsyncSessionLocal  # noqa: E402, I001
+from sqlalchemy import select  # noqa: E402
+from sqlalchemy.orm import selectinload  # noqa: E402
+
+from app.database import AsyncSessionLocal  # noqa: E402
 from app.models.activity import Activity  # noqa: E402
 from app.models.building import Building  # noqa: E402
-from app.models.organisation import Organisation, OrganisationPhone  # noqa: E402
+from app.models.organisation import (  # noqa: E402
+    Organisation,
+    OrganisationPhone,
+)
 
 
 async def seed_data() -> None:
@@ -115,6 +121,13 @@ async def seed_data() -> None:
         await session.flush()
 
         # Add activities to organisations
+        # Re-query organisations with eager loading to avoid lazy loading issues
+        stmt = select(Organisation).options(
+            selectinload(Organisation.activities)
+        )
+        result = await session.execute(stmt)
+        org1, org2, org3, org4, org5 = result.scalars().all()
+
         org1.activities.extend([healthcare, hospitals])
         org2.activities.extend([education, universities])
         org3.activities.extend([retail, supermarkets])
