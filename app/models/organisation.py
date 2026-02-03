@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, Integer, String, Table
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -16,13 +16,13 @@ if TYPE_CHECKING:
 organisation_activities = Table(
     "organisation_activities",
     Base.metadata,
-    mapped_column(
+    Column(
         "organisation_id",
         Integer,
         ForeignKey("organisations.id", ondelete="CASCADE"),
         primary_key=True,
     ),
-    mapped_column(
+    Column(
         "activity_id",
         Integer,
         ForeignKey("activities.id", ondelete="CASCADE"),

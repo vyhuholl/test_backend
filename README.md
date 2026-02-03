@@ -91,11 +91,6 @@ docker build -t organisations-api .
 docker run -p 8000:8000 -e DATABASE_URL="sqlite+aiosqlite:///./organisations.db" -e API_KEY="your-api-key" organisations-api
 ```
 
-#### Using docker-compose (optional):
-```bash
-docker-compose up --build
-```
-
 ## API Documentation
 
 The API provides interactive documentation at the following endpoints:

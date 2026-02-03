@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.core.config import settings
-from app.models.base import Base
+from app.models import Base  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,7 +18,11 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Override sqlalchemy.url from settings
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# Use synchronous URL for Alembic migrations
+sync_db_url = settings.database_url.replace(
+    "sqlite+aiosqlite://", "sqlite://"
+)
+config.set_main_option("sqlalchemy.url", sync_db_url)
 
 # add your model's MetaData object here
 # for 'autogenerate' support

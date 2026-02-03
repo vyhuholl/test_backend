@@ -1,11 +1,17 @@
 """Seed data script for organisations, buildings, and activities."""
 
 import asyncio
+import sys
+from pathlib import Path
 
-from app.database import AsyncSessionLocal
-from app.models.activity import Activity
-from app.models.building import Building
-from app.models.organisation import Organisation, OrganisationPhone
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from app.database import AsyncSessionLocal  # noqa: E402, I001
+from app.models.activity import Activity  # noqa: E402
+from app.models.building import Building  # noqa: E402
+from app.models.organisation import Organisation, OrganisationPhone  # noqa: E402
 
 
 async def seed_data() -> None:
