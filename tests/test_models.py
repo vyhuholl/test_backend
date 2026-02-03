@@ -1,6 +1,7 @@
 """Tests for database models."""
 
-import pytest
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 
 from app.models.activity import Activity
 from app.models.building import Building
@@ -27,13 +28,21 @@ class TestActivity:
         parent = Activity(name="Parent Activity")
         db_session.add(parent)
         await db_session.commit()
-        await db_session.refresh(parent)
 
         # Create child activity
         child = Activity(name="Child Activity", parent_id=parent.id)
         db_session.add(child)
         await db_session.commit()
-        await db_session.refresh(child)
+
+        # Refresh with eager loading to avoid MissingGreenlet error
+        stmt = select(Activity).options(
+            selectinload(Activity.children),
+            selectinload(Activity.parent),
+        )
+        result = await db_session.execute(stmt)
+        activities = result.scalars().all()
+        parent = activities[0]
+        child = activities[1]
 
         assert child.parent_id == parent.id
         assert child.parent == parent
@@ -45,23 +54,20 @@ class TestActivity:
         parent = Activity(name="Parent")
         db_session.add(parent)
         await db_session.commit()
-        await db_session.refresh(parent)
 
         child = Activity(name="Child", parent_id=parent.id)
         db_session.add(child)
         await db_session.commit()
-        await db_session.refresh(child)
 
         grandchild = Activity(name="Grandchild", parent_id=child.id)
         db_session.add(grandchild)
         await db_session.commit()
-        await db_session.refresh(grandchild)
 
-        # Get descendants from parent
-        descendants = parent.get_descendants()
+        # Get descendants from parent (async method)
+        descendants = await parent.get_descendants(db_session)
         assert len(descendants) == 2
-        assert child in descendants
-        assert grandchild in descendants
+        assert child.id in [d.id for d in descendants]
+        assert grandchild.id in [d.id for d in descendants]
 
     async def test_activity_get_level(self, db_session):
         """Test get_level method."""
@@ -164,11 +170,21 @@ class TestOrganisation:
 
         db_session.add(organisation)
         await db_session.commit()
-        await db_session.refresh(organisation)
+
+        # Refresh with eager loading to avoid MissingGreenlet error
+        stmt = (
+            select(Organisation)
+            .options(
+                selectinload(Organisation.phones),
+            )
+            .where(Organisation.id == organisation.id)
+        )
+        result = await db_session.execute(stmt)
+        organisation = result.scalar_one_or_none()
 
         assert len(organisation.phones) == 2
-        assert phone1 in organisation.phones
-        assert phone2 in organisation.phones
+        assert phone1.id in [p.id for p in organisation.phones]
+        assert phone2.id in [p.id for p in organisation.phones]
 
     async def test_organisation_with_activities(
         self,
@@ -185,10 +201,31 @@ class TestOrganisation:
 
         db_session.add(organisation)
         await db_session.commit()
-        await db_session.refresh(organisation)
 
-        assert sample_activity in organisation.activities
-        assert organisation in sample_activity.organisations
+        # Refresh with eager loading to avoid MissingGreenlet error
+        stmt = (
+            select(Organisation)
+            .options(
+                selectinload(Organisation.activities),
+            )
+            .where(Organisation.id == organisation.id)
+        )
+        result = await db_session.execute(stmt)
+        organisation = result.scalar_one_or_none()
+
+        assert sample_activity.id in [a.id for a in organisation.activities]
+
+        # Also check the reverse relationship
+        stmt2 = (
+            select(Activity)
+            .options(
+                selectinload(Activity.organisations),
+            )
+            .where(Activity.id == sample_activity.id)
+        )
+        result2 = await db_session.execute(stmt2)
+        activity = result2.scalar_one_or_none()
+        assert organisation.id in [o.id for o in activity.organisations]
 
     async def test_organisation_building_relationship(
         self,
@@ -202,10 +239,19 @@ class TestOrganisation:
         )
         db_session.add(organisation)
         await db_session.commit()
-        await db_session.refresh(organisation)
-        await db_session.refresh(sample_building)
 
-        assert organisation in sample_building.organisations
+        # Refresh with eager loading to avoid MissingGreenlet error
+        stmt = (
+            select(Building)
+            .options(
+                selectinload(Building.organisations),
+            )
+            .where(Building.id == sample_building.id)
+        )
+        result = await db_session.execute(stmt)
+        building = result.scalar_one_or_none()
+
+        assert organisation.id in [o.id for o in building.organisations]
 
 
 class TestOrganisationPhone:

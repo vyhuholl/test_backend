@@ -3,6 +3,7 @@
 from typing import TYPE_CHECKING, Self
 
 from sqlalchemy import ForeignKey, Integer, String
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -41,12 +42,28 @@ class Activity(Base):
         back_populates="activities",
     )
 
-    def get_descendants(self) -> list[Self]:
+    async def get_descendants(self, session: AsyncSession) -> list[Self]:
         """Get all descendant activities recursively."""
         descendants: list[Self] = []
-        for child in self.children:
+        # Load children eagerly to avoid lazy loading issues
+        from sqlalchemy import select
+        from sqlalchemy.orm import selectinload
+
+        stmt = (
+            select(Activity)
+            .where(Activity.parent_id == self.id)
+            .options(
+                selectinload(Activity.children),
+            )
+        )
+        result = await session.execute(stmt)
+        children = list(result.scalars().all())
+
+        for child in children:
             descendants.append(child)
-            descendants.extend(child.get_descendants())
+            # Recursively get descendants for each child
+            child_descendants = await child.get_descendants(session)
+            descendants.extend(child_descendants)
         return descendants
 
     def get_level(self) -> int:

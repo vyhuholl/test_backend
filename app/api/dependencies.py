@@ -32,5 +32,6 @@ async def get_authenticated_db(
     _: None = Depends(verify_api_key),
 ) -> AsyncGenerator:
     """Get database session with API key authentication."""
-    async for session in db:
-        yield session
+    # get_db is already a generator that FastAPI handles,
+    # so db is already the AsyncSession, not an async generator
+    yield db

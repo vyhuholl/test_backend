@@ -3,14 +3,14 @@
 from collections.abc import AsyncGenerator
 
 import pytest
-import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import event
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
+from sqlalchemy.orm import selectinload
 
 from app.api.dependencies import get_db
 from app.core.config import settings
@@ -18,7 +18,7 @@ from app.main import create_app
 from app.models.activity import Activity
 from app.models.base import Base
 from app.models.building import Building
-from app.models.organisation import Organisation, OrganisationPhone
+from app.models.organisation import Organisation
 
 # Test database URL (in-memory SQLite)
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
@@ -46,7 +46,9 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 @pytest.fixture
-async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient, None]:
+async def client(
+    db_session: AsyncSession,
+) -> AsyncGenerator[AsyncClient, None]:
     """Fixture for HTTP test client."""
     app = create_app()
 
@@ -126,5 +128,15 @@ async def sample_organisation(
     organisation.activities.append(sample_activity)
     db_session.add(organisation)
     await db_session.commit()
-    await db_session.refresh(organisation)
+    # Refresh with eager loading to avoid MissingGreenlet error
+    stmt = (
+        select(Organisation)
+        .options(
+            selectinload(Organisation.building),
+            selectinload(Organisation.activities),
+        )
+        .where(Organisation.id == organisation.id)
+    )
+    result = await db_session.execute(stmt)
+    organisation = result.scalar_one_or_none()
     return organisation

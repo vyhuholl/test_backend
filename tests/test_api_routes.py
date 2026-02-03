@@ -1,7 +1,5 @@
 """Tests for API routes."""
 
-import pytest
-
 from app.models.activity import Activity
 from app.models.building import Building
 from app.models.organisation import Organisation
@@ -132,8 +130,8 @@ class TestOrganisationRoutes:
         lat = sample_organisation.building.latitude
         lon = sample_organisation.building.longitude
         response = await authenticated_client.get(
-            f"/organisations/search?min_lat={lat-1}&max_lat={lat+1}"
-            f"&min_lon={lon-1}&max_lon={lon+1}",
+            f"/organisations/search?min_lat={lat - 1}&max_lat={lat + 1}"
+            f"&min_lon={lon - 1}&max_lon={lon + 1}",
         )
 
         assert response.status_code == 200
@@ -151,7 +149,9 @@ class TestOrganisationRoutes:
 
         assert response.status_code == 400
         data = response.json()
-        assert "lat" in data["detail"].lower()
+        # Custom HTTPException returns {"detail": "..."}
+        detail = data.get("detail", "Unknown error")
+        assert "lat" in detail.lower()
 
     async def test_search_organisations_partial_area_params(
         self,
@@ -164,7 +164,9 @@ class TestOrganisationRoutes:
 
         assert response.status_code == 400
         data = response.json()
-        assert "area" in data["detail"].lower()
+        # Custom HTTPException returns {"detail": "..."}
+        detail = data.get("detail", "Unknown error")
+        assert "area" in detail.lower()
 
     async def test_get_organisations_without_auth(self, client):
         """Test GET /organisations/{id} without authentication."""

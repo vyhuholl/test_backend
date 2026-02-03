@@ -33,10 +33,14 @@ class ActivityService:
         activity_id: int,
     ) -> list[Activity]:
         """Get all descendant activities recursively."""
-        activity = await self.get_by_id(activity_id)
+        # Get the activity
+        stmt = select(Activity).where(Activity.id == activity_id)
+        result = await self.session.execute(stmt)
+        activity = result.scalar_one_or_none()
         if activity is None:
             return []
-        return activity.get_descendants()
+        # Call async get_descendants with session
+        return await activity.get_descendants(self.session)
 
     async def get_activity_tree(self) -> list[dict]:
         """Get all activities as a hierarchical tree."""

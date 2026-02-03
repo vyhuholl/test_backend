@@ -62,7 +62,9 @@ class OrganisationService:
             return
 
         activity_ids = [activity_id]
-        activity_ids.extend([a.id for a in activity.get_descendants()])
+        # get_descendants is now async
+        descendants = await activity.get_descendants(self.session)
+        activity_ids.extend([a.id for a in descendants])
 
         stmt = (
             select(Organisation)
